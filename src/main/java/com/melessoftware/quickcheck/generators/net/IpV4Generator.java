@@ -57,8 +57,8 @@ public class IpV4Generator implements Generator<InetAddress> {
         };
         try {
             return InetAddress.getByAddress(bytes);
-        } catch (UnknownHostException e) {
-            throw new RuntimeException("unexpected exception", e);
+        } catch (UnknownHostException thisShouldNeverHappen) {
+            throw new RuntimeException("unexpected exception", thisShouldNeverHappen);
         }
     }
 }
