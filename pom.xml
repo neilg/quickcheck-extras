@@ -90,7 +90,6 @@
                         <artifactId>pitest-maven</artifactId>
                         <executions>
                             <execution>
-                                <phase>test</phase>
                                 <goals>
                                     <goal>mutationCoverage</goal>
                                 </goals>
