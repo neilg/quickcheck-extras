@@ -43,7 +43,7 @@
         <plugins>
             <plugin>
                 <groupId>org.pitest</groupId>
-                <artifactId>pitest</artifactId>
+                <artifactId>pitest-maven</artifactId>
                 <version>${pitest.version}</version>
             </plugin>
         </plugins>
