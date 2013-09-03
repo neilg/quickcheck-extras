@@ -18,12 +18,11 @@
 
 package com.melessoftware.quickcheck.characteristics;
 
+import static com.melessoftware.quickcheck.characteristics.MatcherCharacteristic.they;
+import static net.java.quickcheck.QuickCheck.forAll;
 import static net.java.quickcheck.generator.PrimitiveGenerators.objects;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import net.java.quickcheck.CharacteristicException;
@@ -44,29 +43,21 @@ public class MatcherCharacteristicTest {
     @Before
     public void setup() {
         alwaysFail = mock(Matcher.class);
-        when(alwaysFail.matches(any())).thenReturn(false);
-
         alwaysPass = mock(Matcher.class);
+
+        when(alwaysFail.matches(any())).thenReturn(false);
         when(alwaysPass.matches(any())).thenReturn(true);
     }
 
     @Test
     public void forAllShouldFailIfMatchFails() {
         expectedException.expect(CharacteristicException.class);
-        MatcherCharacteristic.forAll(objects(), alwaysFail);
+        forAll(objects(), they(alwaysFail));
     }
 
     @Test
     public void shouldPassIfMatchPasses() {
-        MatcherCharacteristic.forAll(objects(), alwaysPass);
-    }
-
-    @Test
-    public void forAllShouldMakeSpecifiedNumberOfRuns() {
-        int runs = 13543;
-        MatcherCharacteristic.forAll(runs, objects(), alwaysPass);
-        verify(alwaysPass, times(runs)).matches(any());
-        verifyNoMoreInteractions(alwaysPass);
+        forAll(objects(), they(alwaysPass));
     }
 
 }

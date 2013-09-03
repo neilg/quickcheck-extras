@@ -20,8 +20,7 @@ package com.melessoftware.quickcheck.characteristics;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import net.java.quickcheck.Generator;
-import net.java.quickcheck.QuickCheck;
+import net.java.quickcheck.Characteristic;
 import net.java.quickcheck.characteristic.AbstractCharacteristic;
 import org.hamcrest.Matcher;
 
@@ -38,11 +37,8 @@ public class MatcherCharacteristic<T> extends AbstractCharacteristic<T> {
         assertThat(any, matcher);
     }
 
-    public static <T> void forAll(Generator<T> generator, Matcher<? super T> matcher) {
-        QuickCheck.forAll(generator, new MatcherCharacteristic<T>(matcher));
+    public static <T> Characteristic<T> they(Matcher<? super T> matcher) {
+        return new MatcherCharacteristic<T>(matcher);
     }
 
-    public static <T> void forAll(int runs, Generator<T> generator, Matcher<? super T> matcher) {
-        QuickCheck.forAll(runs, generator, new MatcherCharacteristic<T>(matcher));
-    }
 }
