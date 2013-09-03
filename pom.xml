@@ -40,6 +40,10 @@
         <pitest.version>0.30</pitest.version>
     </properties>
 
+    <scm>
+        <connection>scm:git:https://github.com/neilg/quickcheck-extras</connection>
+    </scm>
+
     <build>
         <pluginManagement>
             <plugins>
