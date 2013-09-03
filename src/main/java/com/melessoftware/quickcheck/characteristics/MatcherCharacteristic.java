@@ -41,4 +41,8 @@ public class MatcherCharacteristic<T> extends AbstractCharacteristic<T> {
         return new MatcherCharacteristic<T>(matcher);
     }
 
+    public static <T> Characteristic<T> characteristic(Matcher<? super T> matcher) {
+        return new MatcherCharacteristic<T>(matcher);
+    }
+
 }
