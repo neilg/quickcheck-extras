@@ -16,39 +16,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.melessoftware.quickcheck.generators.net;
+package com.melessoftware.quickcheck;
 
 import static com.melessoftware.quickcheck.Extras.are;
-import static com.melessoftware.quickcheck.characteristics.MatcherCharacteristic.they;
-import static net.java.quickcheck.QuickCheck.forAll;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.sameInstance;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
 
-import java.net.InetAddress;
-
-import org.junit.Before;
+import org.hamcrest.Matcher;
 import org.junit.Test;
 
-public class IpV4GeneratorTest {
-
-    private static final int ITERATIONS = 100000;
-
-    private IpV4Generator generatorUnderTest;
-
-    @Before
-    public void setup() {
-        generatorUnderTest = new IpV4Generator();
-    }
+public class ExtrasTest {
 
     @Test
-    public void shouldNotThrowExceptions() {
-        for (int i = 0; i < ITERATIONS; i++) {
-            generatorUnderTest.next();
-        }
+    public void areShouldReturnSameInstance() {
+        Matcher matcher = mock(Matcher.class);
+        assertThat(are(matcher), is(sameInstance(matcher)));
     }
-
-    @Test
-    public void shouldNotReturnNull() {
-        forAll(ITERATIONS, generatorUnderTest, they(are(notNullValue(InetAddress.class))));
-    }
-
 }
