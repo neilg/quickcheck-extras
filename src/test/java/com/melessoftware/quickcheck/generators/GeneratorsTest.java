@@ -18,12 +18,11 @@
 
 package com.melessoftware.quickcheck.generators;
 
+import static com.melessoftware.quickcheck.characteristics.MatcherCharacteristic.characteristic;
 import static com.melessoftware.quickcheck.generators.Generators.chooseFrom;
 import static net.java.quickcheck.QuickCheck.forAll;
-import static org.hamcrest.Matchers.hasItemInArray;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.Matchers.isOneOf;
 
-import net.java.quickcheck.characteristic.AbstractCharacteristic;
 import org.junit.Test;
 
 public class GeneratorsTest {
@@ -37,11 +36,6 @@ public class GeneratorsTest {
         for (int i = 0; i < numObjects; i++) {
             objects[i] = new Object();
         }
-        forAll(ITERATIONS, chooseFrom(objects), new AbstractCharacteristic<Object>() {
-            @Override
-            protected void doSpecify(Object object) {
-                assertThat(objects, hasItemInArray(object));
-            }
-        });
+        forAll(ITERATIONS, chooseFrom(objects), characteristic(isOneOf(objects)));
     }
 }
