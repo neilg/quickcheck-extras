@@ -72,12 +72,6 @@
                 </plugin>
             </plugins>
         </pluginManagement>
-        <plugins>
-            <plugin>
-                <groupId>org.pitest</groupId>
-                <artifactId>pitest-maven</artifactId>
-            </plugin>
-        </plugins>
     </build>
 
     <profiles>
