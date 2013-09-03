@@ -18,6 +18,7 @@
 
 package com.melessoftware.quickcheck.characteristics;
 
+import static com.melessoftware.quickcheck.characteristics.MatcherCharacteristic.characteristic;
 import static com.melessoftware.quickcheck.characteristics.MatcherCharacteristic.they;
 import static net.java.quickcheck.QuickCheck.forAll;
 import static net.java.quickcheck.generator.PrimitiveGenerators.objects;
@@ -50,14 +51,25 @@ public class MatcherCharacteristicTest {
     }
 
     @Test
-    public void forAllShouldFailIfMatchFails() {
+    public void forAllShouldFailIfMatchFailsWithThey() {
         expectedException.expect(CharacteristicException.class);
         forAll(objects(), they(alwaysFail));
     }
 
     @Test
-    public void shouldPassIfMatchPasses() {
+    public void shouldPassIfMatchPassesWithThey() {
         forAll(objects(), they(alwaysPass));
+    }
+
+    @Test
+    public void forAllShouldFailIfMatchFailsWithCharacteristic() {
+        expectedException.expect(CharacteristicException.class);
+        forAll(objects(), characteristic(alwaysFail));
+    }
+
+    @Test
+    public void shouldPassIfMatchPassesWithCharacteristic() {
+        forAll(objects(), characteristic(alwaysPass));
     }
 
 }
