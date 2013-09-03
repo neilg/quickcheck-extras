@@ -16,13 +16,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.melessoftware.quickcheck.generators;
+package com.melessoftware.quickcheck.characteristics;
 
-import net.java.quickcheck.Generator;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-public class Generators {
+import net.java.quickcheck.Characteristic;
+import net.java.quickcheck.characteristic.AbstractCharacteristic;
+import org.hamcrest.Matcher;
 
-    public static <T> Generator<T> chooseFrom(T... chooseFrom) {
-        return new ChoiceGenerator<T>(chooseFrom);
+public class MatcherCharacteristic<T> extends AbstractCharacteristic<T> {
+
+    private final Matcher<? super T> matcher;
+
+    public MatcherCharacteristic(Matcher<? super T> matcher) {
+        this.matcher = matcher;
     }
+
+    @Override
+    protected void doSpecify(T any) {
+        assertThat(any, matcher);
+    }
+
+    public static <T> Characteristic<T> they(Matcher<? super T> matcher) {
+        return new MatcherCharacteristic<T>(matcher);
+    }
+
 }

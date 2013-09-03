@@ -16,39 +16,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.melessoftware.quickcheck.generators.net;
+package com.melessoftware.quickcheck.generators;
 
-import static com.melessoftware.quickcheck.Extras.are;
-import static com.melessoftware.quickcheck.characteristics.MatcherCharacteristic.they;
+import static com.melessoftware.quickcheck.generators.Generators.chooseFrom;
 import static net.java.quickcheck.QuickCheck.forAll;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.hasItemInArray;
+import static org.junit.Assert.assertThat;
 
-import java.net.InetAddress;
-
-import org.junit.Before;
+import net.java.quickcheck.characteristic.AbstractCharacteristic;
 import org.junit.Test;
 
-public class IpV4GeneratorTest {
+public class GeneratorsTest {
 
     private static final int ITERATIONS = 100000;
 
-    private IpV4Generator generatorUnderTest;
-
-    @Before
-    public void setup() {
-        generatorUnderTest = new IpV4Generator();
-    }
-
     @Test
-    public void shouldNotThrowExceptions() {
-        for (int i = 0; i < ITERATIONS; i++) {
-            generatorUnderTest.next();
+    public void choiceShouldBeAProvidedValue() {
+        final int numObjects = 1000;
+        final Object[] objects = new Object[numObjects];
+        for (int i = 0; i < numObjects; i++) {
+            objects[i] = new Object();
         }
+        forAll(ITERATIONS, chooseFrom(objects), new AbstractCharacteristic<Object>() {
+            @Override
+            protected void doSpecify(Object object) {
+                assertThat(objects, hasItemInArray(object));
+            }
+        });
     }
-
-    @Test
-    public void shouldNotReturnNull() {
-        forAll(ITERATIONS, generatorUnderTest, they(are(notNullValue(InetAddress.class))));
-    }
-
 }

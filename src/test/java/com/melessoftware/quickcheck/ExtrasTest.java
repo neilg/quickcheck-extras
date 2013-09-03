@@ -16,13 +16,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.melessoftware.quickcheck.generators;
+package com.melessoftware.quickcheck;
 
-import net.java.quickcheck.Generator;
+import static com.melessoftware.quickcheck.Extras.are;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.sameInstance;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
 
-public class Generators {
+import org.hamcrest.Matcher;
+import org.junit.Test;
 
-    public static <T> Generator<T> chooseFrom(T... chooseFrom) {
-        return new ChoiceGenerator<T>(chooseFrom);
+public class ExtrasTest {
+
+    @Test
+    public void areShouldReturnSameInstance() {
+        Matcher matcher = mock(Matcher.class);
+        assertThat(are(matcher), is(sameInstance(matcher)));
     }
 }

@@ -16,13 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.melessoftware.quickcheck.generators;
+package com.melessoftware.quickcheck;
 
-import net.java.quickcheck.Generator;
+import org.hamcrest.Matcher;
 
-public class Generators {
+public class Extras {
 
-    public static <T> Generator<T> chooseFrom(T... chooseFrom) {
-        return new ChoiceGenerator<T>(chooseFrom);
+    public static <T> Matcher<T> are(Matcher<T> matcher) {
+        return matcher;
     }
 }
