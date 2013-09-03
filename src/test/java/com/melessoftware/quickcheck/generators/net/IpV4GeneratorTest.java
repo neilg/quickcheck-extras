@@ -29,7 +29,7 @@ import org.junit.Test;
 
 public class IpV4GeneratorTest {
 
-    private static final int ITERATIONS = 1000000;
+    private static final int ITERATIONS = 100000;
 
     private IpV4Generator generatorUnderTest;
 
